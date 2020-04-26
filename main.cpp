@@ -16,9 +16,10 @@ int main()
     var.get<int>() = 50;
     std::cout << var.get<int>() << std::endl;
 
-    var.set<std::string>(std::string("test"));
+    var.set<std::string>("test");
     std::cout << var.get<std::string>() << std::endl;
 
+    var.set<int>(40);
     std::cout << var.get<int>() << std::endl;
 
 

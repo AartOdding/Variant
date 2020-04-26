@@ -1,8 +1,18 @@
 #include "Variant.hpp"
 
+#include <string>
+
 
 namespace ZigZag
 {
+
+
+
+std::unordered_map<uintPtr, VariantHelperMethods*>* Variant::getRegisteredTypes()
+{
+    static std::unordered_map<uintPtr, VariantHelperMethods*> registeredVariantTypes;
+    return &registeredVariantTypes;
+}
 
 
 VariantHelperMethods::VariantHelperMethods(uintPtr typeIndex, Constructor&& constructor, Destructor&& destructor)
@@ -10,10 +20,29 @@ VariantHelperMethods::VariantHelperMethods(uintPtr typeIndex, Constructor&& cons
       destruct(std::move(destructor))
 {
     // When typeIndex was already in use it is overriden, this is desired behaviour.
-    Variant::registeredVariantTypes[typeIndex] = this;
+    Variant::getRegisteredTypes()->insert_or_assign(typeIndex, this);
 }
 
-std::unordered_map<uintPtr, VariantHelperMethods*> Variant::registeredVariantTypes;
+
+
+
+void Variant::destruct()
+{
+    if (m_typeIndex != 0)
+    {
+        auto it = getRegisteredTypes()->find(m_typeIndex);
+
+        if (it != getRegisteredTypes()->end())
+        {
+            it->second->destruct(m_data);
+            m_typeIndex = 0;
+        }
+        else
+        {
+            throw std::runtime_error("No VariantHelperMethods available for Variant with type: " + std::to_string(m_typeIndex));
+        }
+    }
+}
 
 
 bool Variant::isNull() const
@@ -23,4 +52,3 @@ bool Variant::isNull() const
 
 
 }
-

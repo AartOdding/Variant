@@ -7,6 +7,7 @@
 namespace ZigZag
 {
 
+// int, 0
 
 template<> 
 struct VariantTypeAtIndex<1>
@@ -20,6 +21,16 @@ struct VariantIndexForType<int>
     static constexpr uintPtr index = 1;
 };
 
+VariantHelperMethods variantIntHelpers
+{
+    1,
+    [](void*&, void*){},
+    [](void*){} // no dynamic memory allocated
+};
+
+
+// float, 2
+
 template<> 
 struct VariantTypeAtIndex<2>
 {
@@ -31,6 +42,16 @@ struct VariantIndexForType<float>
 {
     static constexpr uintPtr index = 2;
 };
+
+VariantHelperMethods variantFloatHelpers
+{
+    2,
+    [](void*&, void*){},
+    [](void*){}
+};
+
+
+// test struct, 3
 
 struct TestStruct
 {
@@ -52,6 +73,16 @@ struct VariantIndexForType<TestStruct>
     static constexpr uintPtr index = 3;
 };
 
+VariantHelperMethods variantTestStructHelpers
+{
+    3,
+    [](void*&, void*){},
+    [](void* value){ delete static_cast<TestStruct*>(value); }
+};
+
+
+// std::string, 4
+
 template<> 
 struct VariantTypeAtIndex<4>
 {
@@ -62,6 +93,13 @@ template<>
 struct VariantIndexForType<std::string>
 {
     static constexpr uintPtr index = 4;
+};
+
+VariantHelperMethods variantStdStringHelpers
+{
+    4,
+    [](void*&, void*){},
+    [](void* value){ delete static_cast<std::string*>(value); }
 };
 
 
