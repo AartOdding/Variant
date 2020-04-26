@@ -2,13 +2,46 @@
 
 #include "VariantTest.hpp"
 
+#include "DebugClass.hpp"
+
 
 using namespace ZigZag;
+
+
+template<> 
+struct VariantTypeAtIndex<6>
+{
+    using type = DebugClass;
+};
+
+template<> 
+struct VariantIndexForType<DebugClass>
+{
+    static constexpr uintPtr index = 6;
+};
+
+VariantHelperMethods variantDebugClassHelpers
+{
+    6,
+    [](void*&, void*){},
+    [](void* ptr){ delete static_cast<DebugClass*>(ptr); }
+};
+
+
 
 int main()
 {
     ZigZag::Variant var;
     std::cout << var.isNull() << std::endl;
+
+    DebugClass dbg;
+    Variant dbgVar;
+    dbgVar.set(dbg);
+    dbg.hello();
+
+    DebugClass dbg2;
+    dbgVar.set(std::move(dbg2));
+
 
     var.set(20);
     std::cout << var.get<int>() << std::endl;

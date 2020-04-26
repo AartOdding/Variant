@@ -1,4 +1,4 @@
-
+#include <utility>
 
 
 namespace ZigZag
@@ -7,14 +7,14 @@ namespace ZigZag
     template<typename T>
     T& Variant::get()
     {
-        static_assert(!std::is_reference<T>::value, "Type is not allowed to be a reference.");
-        static_assert(VariantIndexForType<T>::index >= 0, "Type must be able to be stored in Variant.");
+        using DataType = typename std::remove_reference<T>::type;
+        static_assert(VariantIndexForType<DataType>::index != 0, "Type must be able to be stored in Variant.");
 
-        if constexpr(sizeof(T) > sizeof(void*))
+        if constexpr(sizeof(DataType) > sizeof(void*))
         {
-            if (m_typeIndex == VariantIndexForType<T>::index)
+            if (m_typeIndex == VariantIndexForType<DataType>::index)
             {
-                return *static_cast<T*>(m_data);
+                return *static_cast<DataType*>(m_data);
             }
             else
             {
@@ -23,9 +23,9 @@ namespace ZigZag
         }
         else
         {
-            if (m_typeIndex == VariantIndexForType<T>::index)
+            if (m_typeIndex == VariantIndexForType<DataType>::index)
             {
-                return *reinterpret_cast<T*>(&m_data);
+                return *reinterpret_cast<DataType*>(&m_data);
             }
             else
             {
@@ -38,14 +38,14 @@ namespace ZigZag
     template<typename T>
     const T& Variant::get() const
     {
-        static_assert(!std::is_reference<T>::value, "Type is not allowed to be a reference.");
-        static_assert(VariantIndexForType<T>::index >= 0, "Type must be able to be stored in Variant.");
+        using DataType = typename std::remove_reference<T>::type;
+        static_assert(VariantIndexForType<DataType>::index != 0, "Type must be able to be stored in Variant.");
 
-        if constexpr(sizeof(T) > sizeof(void*))
+        if constexpr(sizeof(DataType) > sizeof(void*))
         {
-            if (m_typeIndex == VariantIndexForType<T>::index)
+            if (m_typeIndex == VariantIndexForType<DataType>::index)
             {
-                return *static_cast<T*>(m_data);
+                return *static_cast<DataType*>(m_data);
             }
             else
             {
@@ -54,54 +54,13 @@ namespace ZigZag
         }
         else
         {
-            if (m_typeIndex == VariantIndexForType<T>::index)
+            if (m_typeIndex == VariantIndexForType<DataType>::index)
             {
-                return *reinterpret_cast<T*>(&m_data);
+                return *reinterpret_cast<DataType*>(&m_data);
             }
             else
             {
                 throw std::runtime_error("Trying to access variant of incompatible type.");
-            }
-        }
-    }
-
-    
-    template<typename T>
-    void Variant::set(const T& value)
-    {
-        static_assert(!std::is_reference<T>::value, "Type is not allowed to be a reference.");
-        static_assert(VariantIndexForType<T>::index >= 0, "Type must be able to be stored in Variant.");
-        
-        if constexpr(sizeof(T) > sizeof(void*))
-        {
-            if (m_typeIndex == VariantIndexForType<T>::index)
-            {
-                *static_cast<T*>(m_data) = value;
-            }
-            else
-            {
-                if (m_typeIndex >= 0)
-                {
-                    destruct();
-                }
-                m_data = new T(value);
-                m_typeIndex = VariantIndexForType<T>::index;
-            }
-        }
-        else
-        {
-            if (m_typeIndex == VariantIndexForType<T>::index)
-            {
-                m_data = reinterpret_cast<void*>(value);
-            }
-            else
-            {
-                if (m_typeIndex >= 0)
-                {
-                    destruct();
-                }
-                m_data = reinterpret_cast<void*>(value);
-                m_typeIndex = VariantIndexForType<T>::index;
             }
         }
     }
@@ -110,14 +69,14 @@ namespace ZigZag
     template<typename T>
     void Variant::set(T&& value)
     {
-        static_assert(!std::is_reference<T>::value, "Type is not allowed to be a reference.");
-        static_assert(VariantIndexForType<T>::index >= 0, "Type must be able to be stored in Variant.");
+        using DataType = typename std::remove_reference<T>::type;
+        static_assert(VariantIndexForType<DataType>::index != 0, "Type must be able to be stored in Variant.");
         
-        if constexpr(sizeof(T) > sizeof(void*))
+        if constexpr(sizeof(DataType) > sizeof(void*))
         {
-            if (m_typeIndex == VariantIndexForType<T>::index)
+            if (m_typeIndex == VariantIndexForType<DataType>::index)
             {
-                *static_cast<T*>(m_data) = std::move(value);
+                *static_cast<DataType*>(m_data) = std::forward<T>(value);
             }
             else
             {
@@ -125,8 +84,8 @@ namespace ZigZag
                 {
                     destruct();
                 }
-                m_data = new T(std::move(value));
-                m_typeIndex = VariantIndexForType<T>::index;
+                m_data = new DataType(std::forward<T>(value));
+                m_typeIndex = VariantIndexForType<DataType>::index;
             }
         }
         else

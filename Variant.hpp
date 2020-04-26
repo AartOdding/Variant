@@ -57,9 +57,6 @@ public:
     const T& get() const;
 
     template<typename T>
-    void set(const T& value);
-
-    template<typename T>
     void set(T&& value);
 
 private:
