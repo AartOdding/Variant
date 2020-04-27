@@ -10,7 +10,7 @@ namespace EasyVariant
 {
 
 // int, 0
-
+/*
 template<> 
 struct VariantTypeAtIndex<1>
 {
@@ -105,5 +105,5 @@ VariantTypeImplementation variantStdStringHelpers
 };
 
 
+*/
 }
-
