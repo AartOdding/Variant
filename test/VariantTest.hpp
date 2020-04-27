@@ -1,10 +1,12 @@
 #pragma once
 
 #include "Variant.hpp"
+#include "VariantTypeImplementation.hpp"
+
 #include <string>
 
 
-namespace ZigZag
+namespace EasyVariant
 {
 
 // int, 0
@@ -18,10 +20,10 @@ struct VariantTypeAtIndex<1>
 template<> 
 struct VariantIndexForType<int>
 {
-    static constexpr uintPtr index = 1;
+    static constexpr uintptr_t index = 1;
 };
 
-VariantHelperMethods variantIntHelpers
+VariantTypeImplementation variantIntHelpers
 {
     1,
     [](void*&, void*){},
@@ -40,10 +42,10 @@ struct VariantTypeAtIndex<2>
 template<> 
 struct VariantIndexForType<float>
 {
-    static constexpr uintPtr index = 2;
+    static constexpr uintptr_t index = 2;
 };
 
-VariantHelperMethods variantFloatHelpers
+VariantTypeImplementation variantFloatHelpers
 {
     2,
     [](void*&, void*){},
@@ -70,10 +72,10 @@ struct VariantTypeAtIndex<3>
 template<> 
 struct VariantIndexForType<TestStruct>
 {
-    static constexpr uintPtr index = 3;
+    static constexpr uintptr_t index = 3;
 };
 
-VariantHelperMethods variantTestStructHelpers
+VariantTypeImplementation variantTestStructHelpers
 {
     3,
     [](void*&, void*){},
@@ -92,10 +94,10 @@ struct VariantTypeAtIndex<4>
 template<> 
 struct VariantIndexForType<std::string>
 {
-    static constexpr uintPtr index = 4;
+    static constexpr uintptr_t index = 4;
 };
 
-VariantHelperMethods variantStdStringHelpers
+VariantTypeImplementation variantStdStringHelpers
 {
     4,
     [](void*&, void*){},

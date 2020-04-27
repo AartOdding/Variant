@@ -5,7 +5,7 @@
 #include "DebugClass.hpp"
 
 
-using namespace ZigZag;
+using namespace EasyVariant;
 
 
 template<> 
@@ -17,21 +17,26 @@ struct VariantTypeAtIndex<6>
 template<> 
 struct VariantIndexForType<DebugClass>
 {
-    static constexpr uintPtr index = 6;
+    static constexpr uintptr_t index = 6;
 };
 
-VariantHelperMethods variantDebugClassHelpers
+const inline VariantTypeImplementation variantDebugClassHelpers
 {
     6,
-    [](void*&, void*){},
+    [](void*& ptr, void* other){ ptr = new DebugClass(*static_cast<DebugClass*>(other)); },
     [](void* ptr){ delete static_cast<DebugClass*>(ptr); }
 };
 
 
-
 int main()
 {
-    ZigZag::Variant var;
+    Variant v1;
+    v1 = DebugClass();
+    v1.clear();
+    
+    std::cout << "baaia" << std::endl;
+    /*
+    EasyVariant::Variant var;
     std::cout << var.isNull() << std::endl;
 
     DebugClass dbg;
@@ -41,6 +46,9 @@ int main()
 
     DebugClass dbg2;
     dbgVar.set(std::move(dbg2));
+    Variant debug(dbgVar);
+    debug.set(20);
+    dbgVar.set(45);
 
 
     var.set(20);
@@ -54,13 +62,9 @@ int main()
 
     var.set<int>(40);
     std::cout << var.get<int>() << std::endl;
+    */
 
 
-    std::cout << sizeof(VariantTypeAtIndex<1>::type) << std::endl;
-    std::cout << sizeof(VariantTypeAtIndex<2>::type) << std::endl;
-    std::cout << sizeof(VariantTypeAtIndex<3>::type) << std::endl;
-    //std::cout << sizeof(VariantTypeAtIndex<3>::type) << std::endl;
-    //std::cout << sizeof(VariantIndex<1>::type) << std::endl;
     
 
     return 0;
