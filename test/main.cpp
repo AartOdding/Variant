@@ -25,6 +25,8 @@ int main()
     v2 = 23089123;
     v2 = std::string("haai");
 
+    Variant v3(300);
+
     std::cout << "baai" << std::endl;
     /*
     EasyVariant::Variant var;

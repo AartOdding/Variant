@@ -17,6 +17,15 @@ namespace EasyVariant
         Variant() = default;
         Variant(const Variant&);
         Variant(Variant&&);
+
+        template<typename T>
+        Variant(T&& value)
+            : m_data(nullptr),
+              m_typeIndex(0)
+        {
+            set<T>(std::forward<T>(value));
+        }
+
         ~Variant();
 
 
