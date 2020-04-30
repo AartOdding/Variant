@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 
-namespace EasyVariant
+namespace ZigZag
 {
     
 
@@ -45,4 +45,4 @@ namespace EasyVariant
     };
 
 
-} // namespace EasyVariant
+} // namespace ZigZag

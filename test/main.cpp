@@ -1,17 +1,17 @@
 #include <iostream>
 
-#include "Variant.hpp"
-#include "VariantRegisterType.hpp"
+#include <ZigZag/Variant.hpp>
+#include <ZigZag/VariantRegisterType.hpp>
 
 #include "DebugClass.hpp"
 
 
-using namespace EasyVariant;
+using namespace ZigZag;
 
 
-VARIANT_REGISTER_TYPE(DebugClass, 6)
-VARIANT_REGISTER_TYPE(std::string, 2000)
-VARIANT_REGISTER_TYPE(int, 1)
+ZIGZAG_VARIANT_REGISTER_TYPE(DebugClass, 6)
+ZIGZAG_VARIANT_REGISTER_TYPE(std::string, 2000)
+ZIGZAG_VARIANT_REGISTER_TYPE(int, 1)
 
 
 
@@ -29,7 +29,7 @@ int main()
 
     std::cout << "baai" << std::endl;
     /*
-    EasyVariant::Variant var;
+    ZigZag::Variant var;
     std::cout << var.isNull() << std::endl;
 
     DebugClass dbg;

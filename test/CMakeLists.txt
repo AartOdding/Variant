@@ -4,13 +4,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(EasyVariantTest)
+project(VariantTest)
 
 
 add_executable(
-    EasyVariantTest
+    VariantTest
     main.cpp
-    ../Variant.cpp
-    ../VariantTypeImplementation)
+    ../ZigZag/Variant.cpp
+    ../ZigZag/VariantTypeImplementation)
 
-target_include_directories(EasyVariantTest PRIVATE ../)
+target_include_directories(VariantTest PRIVATE ../)

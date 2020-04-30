@@ -1,12 +1,12 @@
 #pragma once
 
-#include "VariantTypeImplementation.hpp"
+#include <ZigZag/VariantTypeImplementation.hpp>
 
 
-#define VARIANT_REGISTER_TYPE(TYPE, INDEX)                                                \
+#define ZIGZAG_VARIANT_REGISTER_TYPE(TYPE, INDEX)                                         \
                                                                                           \
                                                                                           \
-namespace EasyVariant                                                                     \
+namespace ZigZag                                                                          \
 {                                                                                         \
                                                                                           \
     template<>                                                                            \

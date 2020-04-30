@@ -1,10 +1,9 @@
-#include "Variant.hpp"
-#include "VariantTypeImplementation.hpp"
+#include <ZigZag/Variant.hpp>
 
 #include <string>
 
 
-using namespace EasyVariant;
+using namespace ZigZag;
 
 
 

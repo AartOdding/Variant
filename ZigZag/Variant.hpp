@@ -2,11 +2,12 @@
 
 #include <cstdint>
 #include <type_traits>
-#include "VariantTypeImplementation.hpp"
+
+#include <ZigZag/VariantTypeImplementation.hpp>
 
 
 
-namespace EasyVariant
+namespace ZigZag
 {
 
 
@@ -156,4 +157,4 @@ namespace EasyVariant
     };
 
 
-} // namespace EasyVariant
+} // namespace ZigZag

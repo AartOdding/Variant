@@ -1,7 +1,7 @@
-#include "VariantTypeImplementation.hpp"
+#include <ZigZag/VariantTypeImplementation.hpp>
 
 
-using namespace EasyVariant;
+using namespace ZigZag;
 
 
 std::unordered_map<uintptr_t, VariantTypeImplementation*>* VariantTypeImplementation::getRegisteredTypes()
