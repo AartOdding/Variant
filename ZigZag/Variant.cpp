@@ -120,3 +120,9 @@ bool Variant::operator==(const Variant& other) const
     }
     return false;
 }
+
+
+bool Variant::operator!=(const Variant& other) const
+{
+    return !(operator==(other));
+}

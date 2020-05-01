@@ -41,6 +41,11 @@ DebugClass& operator=(DebugClass&& other)
     return *this;
 }
 
+bool operator==(const DebugClass& other)
+{
+    return this == &other;
+}
+
 void hello() const
 {
     std::cout << "hello " << this << std::endl; 

@@ -21,9 +21,17 @@ int main()
     v1 = DebugClass();
     v1.clear();
 
+    v1 = 23089123;
+
     Variant v2;
     v2 = 23089123;
+    std::cout << (v1 != v2) << std::endl;
+
     v2 = std::string("haai");
+    std::cout << (v1 != v2) << std::endl;
+
+    v1 = std::string("haai");
+    std::cout << (v1 != v2) << std::endl;
 
     Variant v3(300);
 

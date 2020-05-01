@@ -37,12 +37,12 @@ namespace ZigZag                                                                
             {                                                                             \
                 delete static_cast<TYPE*>(ptr);                                           \
             }                                                                             \
-        }                                                                                 \
+        },                                                                                \
         [](void* lhs, void* rhs)                                                          \
         {                                                                                 \
             if constexpr (sizeof(TYPE) > sizeof(void*))                                   \
             {                                                                             \
-                return *lhs == *rhs;                                                      \
+                return *static_cast<TYPE*>(lhs) == *static_cast<TYPE*>(rhs);              \
             }                                                                             \
             else                                                                          \
             {                                                                             \
