@@ -12,13 +12,17 @@ using namespace ZigZag;
 ZIGZAG_VARIANT_REGISTER_TYPE(DebugClass, 6)
 ZIGZAG_VARIANT_REGISTER_TYPE(std::string, 2000)
 ZIGZAG_VARIANT_REGISTER_TYPE(int, 1)
+ZIGZAG_VARIANT_REGISTER_TYPE(Variant, 2)
 
 
 
 int main()
 {
+    
     Variant v1;
     v1 = DebugClass();
+
+
     v1.clear();
 
     v1 = 23089123;
@@ -34,9 +38,15 @@ int main()
     std::cout << (v1 != v2) << std::endl;
 
     Variant v3(300);
+    
+
+    Variant v6(DebugClass{});
+    Variant v7(DebugClass{});
+
+    std::swap(v6, v7);
 
     std::cout << "baai" << std::endl;
-    /*
+    
     ZigZag::Variant var;
     std::cout << var.isNull() << std::endl;
 
@@ -47,10 +57,6 @@ int main()
 
     DebugClass dbg2;
     dbgVar.set(std::move(dbg2));
-    Variant debug(dbgVar);
-    debug.set(20);
-    dbgVar.set(45);
-
 
     var.set(20);
     std::cout << var.get<int>() << std::endl;
@@ -63,9 +69,6 @@ int main()
 
     var.set<int>(40);
     std::cout << var.get<int>() << std::endl;
-    */
-
-
     
 
     return 0;
