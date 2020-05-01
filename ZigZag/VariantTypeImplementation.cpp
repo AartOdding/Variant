@@ -11,9 +11,10 @@ std::unordered_map<uintptr_t, VariantTypeImplementation*>* VariantTypeImplementa
 }
 
 
-VariantTypeImplementation::VariantTypeImplementation(uintptr_t typeIndex, CopyFn&& copyFn, DestructFn&& destructFn)
+VariantTypeImplementation::VariantTypeImplementation(uintptr_t typeIndex, CopyFn&& copyFn, DestructFn&& destructFn, EqualFn&& equalFn)
     : copy(std::move(copyFn)),
-      destruct(std::move(destructFn))
+      destruct(std::move(destructFn)),
+      equal(std::move(equalFn))
 {
     // When typeIndex was already in use it is overriden, this is desired behaviour.
     // Because VariantTypeImplementation objects can be declared as inline variables in 

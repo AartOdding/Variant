@@ -29,12 +29,13 @@ namespace ZigZag
         
         using CopyFn = std::function<void(void*&, void*)>;
         using DestructFn = std::function<void(void*)>;
+        using EqualFn = std::function<bool(void*, void*)>;
 
-        VariantTypeImplementation(uintptr_t typeIndex, CopyFn&& copy, DestructFn&& destruct); 
+        VariantTypeImplementation(uintptr_t typeIndex, CopyFn&& copy, DestructFn&& destruct, EqualFn&& equal); 
 
         const CopyFn copy;
         const DestructFn destruct;
-
+        const EqualFn equal;
 
     private:
 

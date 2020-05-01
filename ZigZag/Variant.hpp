@@ -35,6 +35,14 @@ namespace ZigZag
         bool isNull() const;
 
 
+        template<typename T>
+        bool contains() const
+        {
+            static_assert(VariantIndexForType<T>::index != 0, "Type must be able to be stored in Variant.");
+            return m_typeIndex == VariantIndexForType<T>::index;
+        }
+
+
         template<typename T> 
         T& get()
         {
@@ -146,6 +154,7 @@ namespace ZigZag
         Variant& operator=(const Variant& other);
         Variant& operator=(Variant&& other);
 
+        bool operator==(const Variant& other) const;
 
     private:
 

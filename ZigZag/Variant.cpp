@@ -101,3 +101,22 @@ void Variant::destruct()
         }
     }
 }
+
+
+bool Variant::operator==(const Variant& other) const
+{
+    if (m_typeIndex == other.m_typeIndex)
+    {
+        auto it = VariantTypeImplementation::getRegisteredTypes()->find(m_typeIndex);
+        
+        if (it != VariantTypeImplementation::getRegisteredTypes()->end())
+        {
+            return it->second->equal(m_data, other.m_data);
+        }
+        else
+        {
+            throw std::runtime_error("No VariantTypeImplementation available for Variant with type: " + std::to_string(m_typeIndex));
+        }
+    }
+    return false;
+}
