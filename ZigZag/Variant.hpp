@@ -83,7 +83,7 @@ namespace ZigZag
             {
                 if (m_typeIndex == VariantIndexForType<DataType>::index)
                 {
-                    return *static_cast<DataType*>(m_data);
+                    return *static_cast<const DataType*>(m_data);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace ZigZag
             {
                 if (m_typeIndex == VariantIndexForType<DataType>::index)
                 {
-                    return *reinterpret_cast<DataType*>(&m_data);
+                    return *reinterpret_cast<const DataType*>(&m_data);
                 }
                 else
                 {
